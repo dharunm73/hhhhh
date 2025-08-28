@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MiniLang Web Compiler</title>
+</head>
+<body>
+    <h2>MiniLang Online Compiler</h2>
+    <textarea id="code" rows="10" cols="50">let x = 3;
+let y = x + 4;
+print(y);</textarea><br>
+    <button onclick="compileCode()">Compile</button>
+    <pre id="output"></pre>
+
+    <script>
+        async function compileCode() {
+            const code = document.getElementById('code').value;
+            const res = await fetch('http://localhost:3000/compile', {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain' },
+                body: code
+            });
+            const result = await res.text();
+            document.getElementById('output').textContent = result;
+        }
+    </script>
+</body>
+</html>
+
